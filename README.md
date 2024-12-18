@@ -1,4 +1,4 @@
-# terraform-azure-foundation
+# iac-azure-foundation
 This repo shows how to build a secure cloud foundation / landing zone on Azure. 
 
 A simple hello-world app which is accessible to authenticated employees over the internet is deployed on Azure Container App (aca). It is made up of frontend webapp (aca), apim and backend api (aca). Easy auth is enabled on frontend and backend.
