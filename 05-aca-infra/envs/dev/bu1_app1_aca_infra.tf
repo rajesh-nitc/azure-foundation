@@ -7,5 +7,5 @@ module "bu1_app1_aca_infra" {
   location        = "westus"
   publisher_name  = "Budita"
   publisher_email = "rajesh.nitc@gmail.com"
-  repo            = "rajesh-nitc/terraform-azure-foundation"
+  repo            = "rajesh-nitc/iac-azure-foundation"
 }
