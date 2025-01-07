@@ -54,7 +54,7 @@ jobs:
       run: az config set extension.use_dynamic_install=yes_without_prompt
 
     - name: 'Login via Azure CLI'
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         client-id: ${{ env.CICD_CLIENT_ID }}
         tenant-id: ${{ env.TENANT_ID }}
