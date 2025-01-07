@@ -4,7 +4,7 @@
 # new way: echo "{name}={value}" >> $GITHUB_OUTPUT
 
 name: Deploy aca web
-on: 
+on:
   push:
     branches:
      - main
@@ -23,8 +23,8 @@ env:
   CONTAINER_NAME: bu1-app1-web-westus
   CONTAINER_APP_NAME: ca-bu1-app1-web-westus
   CONTAINER_APP_ENVIRONMENT: cae-bu1-app1-westus
-  LOCATION: westus  
-     
+  LOCATION: westus
+
 jobs:
   build_and_deploy_dev:
     # if: github.event_name == 'pull_request'
@@ -43,21 +43,16 @@ jobs:
       RG: ${{ secrets.WEB_RG_NAME }}
       CONTAINER_APP_UAI_ID: ${{ secrets.WEB_CONTAINER_APP_UAI_ID }}
       REACT_APP_APIM_KEY: ${{ secrets.REACT_APP_APIM_KEY }}
+      SHORT_SHA: ${GITHUB_SHA:0:7}
     runs-on: ubuntu-latest
 
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@main
 
-    - name: Get Short SHA
-      id: get_short_sha
-      run: |
-          SHORT_SHA=$(git rev-parse --short HEAD)
-          echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
-
     - name: Set Azure CLI to dynamically install missing extensions
       shell: bash
-      run: az config set extension.use_dynamic_install=yes_without_prompt 
+      run: az config set extension.use_dynamic_install=yes_without_prompt
 
     - name: 'Login via Azure CLI'
       uses: azure/login@v1
@@ -68,10 +63,7 @@ jobs:
 
     # - name: Build and push image
     #   id: build-image
-    #   env:
-    #     SHORT_SHA: ${{ steps.get_short_sha.outputs.short_sha }}
     #   run: |
-    #       echo "short sha: $SHORT_SHA"
     #       az acr build --image $REGISTRY_LOGIN_SERVER/$IMAGE_NAME-$DEPLOYMENT_ENV:$SHORT_SHA --registry $REGISTRY_LOGIN_SERVER --file "Dockerfile" .
 
     # - name: Check if Azure Container App exists
@@ -81,16 +73,12 @@ jobs:
 
     # - name: Pull image - Create Azure Container App
     #   if: steps.check-app.outputs.exists == 'false'
-    #   env:
-    #     SHORT_SHA: ${{ steps.get_short_sha.outputs.short_sha }}
     #   run: |
     #       echo "app exists: ${{ steps.check-app.outputs.exists }}"
     #       echo $REGISTRY_LOGIN_SERVER/$IMAGE_NAME-$DEPLOYMENT_ENV:$SHORT_SHA
     #       az containerapp create --name $CONTAINER_APP_NAME-$DEPLOYMENT_ENV --resource-group $RG --container-name $CONTAINER_NAME-$DEPLOYMENT_ENV --environment $CONTAINER_APP_ENVIRONMENT-$DEPLOYMENT_ENV --image $REGISTRY_LOGIN_SERVER/$IMAGE_NAME-$DEPLOYMENT_ENV:$SHORT_SHA --ingress external --target-port 3000 --min-replicas 1 --user-assigned $CONTAINER_APP_UAI_ID --registry-identity $CONTAINER_APP_UAI_ID --registry-server $REGISTRY_LOGIN_SERVER
-    
+
     # - name: Pull image - Update Azure Container App
     #   if: steps.check-app.outputs.exists != 'false'
-    #   env:
-    #     SHORT_SHA: ${{ steps.get_short_sha.outputs.short_sha }}
     #   run: |
     #       az containerapp update --name $CONTAINER_APP_NAME-$DEPLOYMENT_ENV --resource-group $RG --image $REGISTRY_LOGIN_SERVER/$IMAGE_NAME-$DEPLOYMENT_ENV:$SHORT_SHA --set-env-vars "REACT_APP_APIM_URL=https://apimbu1app1westusdev.azure-api.net/api" "REACT_APP_APIM_KEY=$REACT_APP_APIM_KEY"

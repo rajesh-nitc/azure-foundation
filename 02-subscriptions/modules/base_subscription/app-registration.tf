@@ -2,8 +2,8 @@ resource "random_uuid" "api" {
 }
 
 resource "azuread_service_principal" "msgraph" {
-  application_id = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph
-  use_existing   = true
+  client_id    = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph
+  use_existing = true
 }
 
 # web
@@ -49,7 +49,7 @@ resource "azuread_application" "web" {
 
 # Create client secret to use hybrid flow which will return access and refresh tokens
 resource "azuread_application_password" "web" {
-  application_object_id = azuread_application.web.id
+  application_id = azuread_application.web.id
 }
 
 # api

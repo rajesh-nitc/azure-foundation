@@ -1,5 +1,4 @@
 locals {
-  mg_id           = data.azurerm_management_group.mg.id
   sub_id          = data.azurerm_subscription.current.subscription_id
   sub_resource_id = data.azurerm_subscription.current.id
   tenant_id       = data.azurerm_client_config.current.tenant_id

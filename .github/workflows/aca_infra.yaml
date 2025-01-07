@@ -1,7 +1,7 @@
 # https://learn.microsoft.com/en-us/samples/azure-samples/github-terraform-oidc-ci-cd/github-terraform-oidc-ci-cd/
 
 name: Deploy aca infra
-on: 
+on:
   push:
     branches:
      - main
@@ -14,9 +14,9 @@ permissions:
       id-token: write
       contents: read
       pull-requests: write
-      
-jobs: 
-  aca_infra_analysis:
+
+jobs:
+  aca_infra_plan:
     # if: github.event_name == 'pull_request'
     defaults:
       run:
@@ -28,7 +28,7 @@ jobs:
       ARM_CLIENT_ID: "${{ secrets.INFRA_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.SUBSCRIPTION_ID }}"
       ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
-      GITHUB_TOKEN: "${{ secrets.PAT }}"
+      GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2.5.0
@@ -51,12 +51,12 @@ jobs:
       id: plan
       run: terraform plan
 
-  aca_infra_deploy_to_dev:
+  aca_infra_apply:
     # if: github.event_name != 'pull_request' && contains(toJson(github.event.commits), 'Initial commit') == false
     defaults:
       run:
         working-directory: 05-aca-infra/envs/dev
-      
+
     name: Deploy to Dev
     environment: dev
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ jobs:
       ARM_CLIENT_ID: "${{ secrets.INFRA_CLIENT_ID }}"
       ARM_SUBSCRIPTION_ID: "${{ secrets.SUBSCRIPTION_ID }}"
       ARM_TENANT_ID: "${{ secrets.TENANT_ID }}"
-      GITHUB_TOKEN: "${{ secrets.PAT }}"
+      GITHUB_TOKEN: "${{ secrets.GH_TOKEN }}"
 
     steps:
     - name: Checkout Code

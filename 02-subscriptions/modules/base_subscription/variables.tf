@@ -54,3 +54,8 @@ variable "budget_contact_emails" {
   type     = list(string)
   nullable = false
 }
+
+variable "github_owner" {
+  type     = string
+  nullable = false
+}

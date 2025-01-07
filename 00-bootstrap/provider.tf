@@ -14,8 +14,8 @@ terraform {
 }
 
 provider "azurerm" {
-  storage_use_azuread        = true
-  skip_provider_registration = true
+  subscription_id     = var.default_subscription_id
+  storage_use_azuread = true
   features {}
 }
 

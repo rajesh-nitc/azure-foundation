@@ -203,19 +203,19 @@ locals {
   pe_snet = {
 
     pesubnet = {
-      name                                      = "pesubnet"
-      address_prefixes                          = var.pe_address_prefixes
-      private_endpoint_network_policies_enabled = false
+      name                              = "pesubnet"
+      address_prefixes                  = var.pe_address_prefixes
+      private_endpoint_network_policies = "Disabled"
     }
   }
 
   apim_snet = {
 
     apimsubnet = {
-      name                                      = "apimsubnet"
-      address_prefixes                          = var.apim_address_prefixes
-      private_endpoint_network_policies_enabled = false
-      nsg_name                                  = "apim"
+      name                              = "apimsubnet"
+      address_prefixes                  = var.apim_address_prefixes
+      private_endpoint_network_policies = "Disabled"
+      nsg_name                          = "apim"
       # For testing allow all inbound and outbound
       # Correct list of rules at https://learn.microsoft.com/en-gb/azure/api-management/virtual-network-reference?tabs=stv2
       nsg_rules = {

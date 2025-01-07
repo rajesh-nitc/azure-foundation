@@ -41,9 +41,9 @@ resource "azuread_service_principal" "terraform" {
   owners                       = [data.azuread_client_config.current.object_id]
 }
 
-resource "azurerm_role_assignment" "terraform" {
+resource "azurerm_role_assignment" "terraform_mg" {
   for_each             = toset(var.terraform_service_principal_roles)
-  scope                = azurerm_management_group.root.id
+  scope                = format("/providers/Microsoft.Management/managementGroups/%s", var.mg_root_id)
   role_definition_name = each.key
   principal_id         = azuread_service_principal.terraform.object_id
 }

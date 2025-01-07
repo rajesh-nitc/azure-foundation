@@ -1,5 +1,8 @@
 # 00-bootstrap
 
+- Manually create ```mg-root``` under Root Management Group
+- Manually create ```mg-bootstrap``` under ```mg-root```
+- Manually move default pay as you go subscription ```sub-bootstrap-tfstate``` under ```mg-bootstrap```
 - Comment out ```backend.tf```
 - ```az login```
 - terraform init/plan/apply

@@ -55,9 +55,9 @@ module "bu1_app1_sub" {
   # github secret for acr name and rg name will be created
   # github secret for app uai id - which will be used by [web/api]-cicd workflow to assign it to container app
   uai_repos = {
-    "infra" = "rajesh-nitc/iac-azure-foundation"
-    "web"   = "rajesh-nitc/iac-azure-foundation"
-    "api"   = "rajesh-nitc/iac-azure-foundation"
+    "infra" = "iac-azure-foundation"
+    "web"   = "iac-azure-foundation"
+    "api"   = "iac-azure-foundation"
   }
 
   # Group will be created and role assignments are given to group at subscription level
@@ -77,6 +77,8 @@ module "bu1_app1_sub" {
   budget_contact_emails = [
     "rajesh.nitc@gmail.com"
   ]
+
+  github_owner = "rajesh-nitc"
 
 }
 

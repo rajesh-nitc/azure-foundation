@@ -1,17 +1,3 @@
-resource "azurerm_management_group" "root" {
-  display_name = "mg-root"
-}
-
-resource "azurerm_management_group" "bootstrap" {
-  display_name               = "mg-bootstrap"
-  parent_management_group_id = azurerm_management_group.root.id
-
-  subscription_ids = [
-    # Assign sub-bootstrap-tfstate to mg-bootstrap
-    var.default_subscription_id
-  ]
-}
-
 resource "azurerm_resource_group" "tfstate" {
   name     = "rg-org-tfstate"
   location = var.location
@@ -28,6 +14,6 @@ resource "azurerm_storage_account" "tfstate" {
 
 resource "azurerm_storage_container" "tfstate" {
   name                  = "stct-org-tfstate"
-  storage_account_name  = azurerm_storage_account.tfstate.name
+  storage_account_id    = azurerm_storage_account.tfstate.id
   container_access_type = "private"
 }

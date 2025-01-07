@@ -14,7 +14,7 @@ resource "azurerm_subnet" "snet" {
 
   service_endpoints = try(each.value.service_endpoints, [])
 
-  private_endpoint_network_policies_enabled     = try(each.value.private_endpoint_network_policies_enabled, true)
+  private_endpoint_network_policies             = try(each.value.private_endpoint_network_policies, "Disabled")
   private_link_service_network_policies_enabled = try(each.value.private_link_service_network_policies_enabled, true)
 }
 

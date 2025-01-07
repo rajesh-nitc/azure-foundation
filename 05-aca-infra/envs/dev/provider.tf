@@ -18,10 +18,9 @@ terraform {
 }
 
 provider "azurerm" {
-  use_oidc                   = true
-  skip_provider_registration = true
-  subscription_id            = "1b668524-37b9-410f-aede-fca0b2f2ee06"
-  storage_use_azuread        = true
+  use_oidc            = true
+  subscription_id     = "1b668524-37b9-410f-aede-fca0b2f2ee06"
+  storage_use_azuread = true
   features {}
 }
 
@@ -30,6 +29,6 @@ provider "azuread" {
 }
 
 provider "github" {
-  # set GITHUB_TOKEN environment variable
-  # Is it available on github action ? 
+  owner = "rajesh-nitc"
+  # set GITHUB_TOKEN environment variable 
 }

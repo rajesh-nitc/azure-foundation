@@ -1,11 +1,16 @@
-resource "azapi_resource" "root" {
-  type      = "Microsoft.Insights/diagnosticSettings@2020-01-01-preview"
-  name      = format("%s-%s", module.naming.monitor_diagnostic_setting.name, "logs")
-  parent_id = local.scope
-  body = jsonencode({
-    properties = {
-      workspaceId = azurerm_log_analytics_workspace.law.id
-      logs        = var.logs
+resource "azurerm_monitor_diagnostic_setting" "subscription" {
+  for_each                       = toset(var.enable_diagnostics_at_subscription)
+  name                           = format("%s-%s", module.naming.monitor_diagnostic_setting.name, "logs")
+  target_resource_id             = format("/subscriptions/%s", each.key)
+  log_analytics_workspace_id     = azurerm_log_analytics_workspace.law.id
+  log_analytics_destination_type = "Dedicated"
+
+  dynamic "enabled_log" {
+    for_each = toset(var.log_categories) # Loop over the log categories
+    content {
+      category = enabled_log.value
     }
-  })
+  }
+
+
 }

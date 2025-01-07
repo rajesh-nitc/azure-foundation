@@ -3,7 +3,7 @@ resource "azurerm_route_table" "route_table" {
   name                          = format("%s-%s", module.naming.route_table.name, each.value.name)
   resource_group_name           = local.rg_name
   location                      = var.location
-  disable_bgp_route_propagation = var.env != "hub" ? false : true
+  bgp_route_propagation_enabled = var.env == "hub" ? false : true
 }
 
 resource "azurerm_route" "route" {

@@ -2,7 +2,7 @@
 
 This stage can run locally and on github actions. 
 
-If on github actions: Need to add github pat as environment secret
+If on github actions: Need to add github GH_TOKEN as Repository secret
 
 Apim api is not created as part of terraform
 

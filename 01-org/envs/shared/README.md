@@ -1,6 +1,6 @@
 # 01-org
 
 ## Before running terraform
-Create subscriptions on the portal:
-- sub-common-management
-- sub-common-connectivity
+- Create mg-common and mg-dev
+- Create sub-common-management and sub-common-connectivity
+- Move subscriptions to mg-common

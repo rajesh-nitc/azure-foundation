@@ -20,11 +20,8 @@ variable "location" {
   default  = "westus"
 }
 
-variable "logs" {
-  type = list(object({
-    category = string
-    enabled  = bool
-  }))
+variable "log_categories" {
+  type     = list(string)
   nullable = false
 }
 
@@ -52,6 +49,11 @@ variable "budget_amount" {
 }
 
 variable "budget_contact_emails" {
+  type     = list(string)
+  nullable = false
+}
+
+variable "enable_diagnostics_at_subscription" {
   type     = list(string)
   nullable = false
 }
