@@ -24,7 +24,7 @@ resource "azurerm_federated_identity_credential" "cicd" {
   audience            = ["api://AzureADTokenExchange"]
   issuer              = "https://token.actions.githubusercontent.com"
   parent_id           = azurerm_user_assigned_identity.uai["${each.key}-cicd"].id
-  subject             = "repo:${var.github_owner}/${each.value}${each.value}:environment:${var.env}"
+  subject             = "repo:${var.github_owner}/${each.value}:environment:${var.env}"
 }
 
 # apim
