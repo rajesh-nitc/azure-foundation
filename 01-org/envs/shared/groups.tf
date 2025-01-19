@@ -3,7 +3,18 @@ resource "azuread_group" "group" {
   display_name            = each.key
   security_enabled        = true
   prevent_duplicate_names = true
-  owners                  = [data.azuread_client_config.current.object_id]
+  owners = [
+    # This is my user object ID
+    # I think i might have created these groups using my Azure account and
+    # not using the terraform service principal
+    data.azuread_client_config.current.object_id
+  ]
+
+  lifecycle {
+    ignore_changes = [
+      owners,
+    ]
+  }
 }
 
 resource "azurerm_role_assignment" "group" {

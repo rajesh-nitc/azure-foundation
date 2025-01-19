@@ -4,7 +4,7 @@ sub_id_connectivity = "9f75fbbf-3b6c-4036-971d-426b55119ad5"
 
 allowed_locations = [
   "westus",
-  "eastus"
+  "eastus" # so we can create openai service in eastus and have access to more OpenAI models
 ]
 
 # group will be created and roles will be assigned to group on root mg
@@ -16,19 +16,10 @@ group_roles = {
 }
 
 log_categories = [
-  # "Administrative",  # Logs related to administrative actions like resource creation, deletion, etc.
-  # "Security",        # Security-related logs for monitoring access and authentication.
-  # "ServiceHealth",   # Logs related to service health and outages.
-  # "OperationalLogs", # Logs about the operations of the resource (e.g., failures, warnings).
-  "Policy" # Logs related to policy events and compliance.
+  "Administrative",
 ]
 
 law_solutions = [
-  {
-    name      = "ContainerInsights"
-    publisher = "Microsoft"
-    product   = "OMSGallery/ContainerInsights"
-  },
 ]
 
 budget_amount = 250
